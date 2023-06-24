@@ -21,6 +21,7 @@ public class Main extends javax.swing.JFrame {
     static Random rng=new Random();
     static Scanner leer= new Scanner(System.in);//Scanner para enteros
     static Scanner read= new Scanner(System.in);//Scanner para Strings
+    static ArrayList<Numero>listadenumeros= new ArrayList();
     
     public Main() {
         initComponents();
@@ -132,28 +133,14 @@ public class Main extends javax.swing.JFrame {
          switch(opi){
          
              case 1:
-                 System.out.println("Ingrese el numero: ");
-                 int numero=leer.nextInt();
-                 System.out.println("Ingrese la base del numero: ");
-                 int base=leer.nextInt();
-                 
-                 while(numero<1 || (base<2 || base>35)){
-                 
-                     System.out.println("Su numero tiene que ser mayor a 1 y su base tiene que estar entre 2 y 35");
-                     System.out.println("Ingrese el numero: ");
-                  numero=leer.nextInt();
-                 System.out.println("Ingrese la base del numero: ");
-                  base=leer.nextInt();
-                 
-                 }//Fin del while
-                 
-                 System.out.println(N);
+                 AgregarNumeros();
+                System.out.println("Numero agregado !");
+                
               break;
             
              case 2:
-                 listadenumeros.remove(N);
-                 break;
-                 
+                 EliminarNumero(listadenumeros);
+                 System.out.println("Numero eliminado exitosamente!");
              case 3:
                  opcion=false;
                  break;
@@ -176,25 +163,31 @@ public class Main extends javax.swing.JFrame {
             System.out.println("1.Sumar Numeros ");
             System.out.println("2. Restar Numeros ");
             System.out.println("3. Multiplicar Numeros ");
+            System.out.println("4. Menu Principal");
             int opi=leer.nextInt();
          
          switch(opi){
          
              case 1:
                  
-                 
+                 SumarNumero(listadenumeros);
               break;
             
              case 2:
+                 RestarNumero(listadenumeros);
                  
                  break;
                  
              case 3:
-               opcion=false;
+                 MultiplicarNumero(listadenumeros);
+                 break;
+                 
+             case 4:
+                 opcion=false;
                  break;
                  
              default:
-                 System.out.println("Ingrese de las opciones dadas: ");
+                 System.out.println("Ingrese de las opciones dadas ");
                  break;
          
          }//Fin del switch
@@ -246,5 +239,157 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 public Numero N= new Numero();
-public ArrayList<Numero> listadenumeros= new ArrayList();
+public static void AgregarNumeros(){
+                System.out.println("Ingrese el numero: ");
+                 int numero=leer.nextInt();
+                 System.out.println("Ingrese la base del numero: ");
+                 int base=leer.nextInt();
+                 
+                 while(numero<1 || (base<2 || base>35)){
+                 
+                     System.out.println("Su numero tiene que ser mayor a 1 y su base tiene que estar entre 2 y 35");
+                     System.out.println("Ingrese el numero: ");
+                  numero=leer.nextInt();
+                 System.out.println("Ingrese la base del numero: ");
+                  base=leer.nextInt();
+                 }//Fin del while
+               
+               Numero N= new Numero(base, numero);//Instanciacion de mi clase Numero
+               listadenumeros.add(N);//Adicion a mi lista
+}
+
+public static void ImprimirNumero(ArrayList<Numero>listadenumeros){
+
+    System.out.println("Lista de Numeros ");
+    
+    for(int i=0; i<listadenumeros.size(); i++){
+    
+        System.out.println("Numero "+(i+1));
+        System.out.println(listadenumeros.get(i).getResultadofinal());
+        System.out.println("Base: "+listadenumeros.get(i).getBase());
+    
+    }//Fin del for
+
+    
+
+}//Fin del metodo ImprimirNumero
+public static ArrayList<Numero> EliminarNumero(ArrayList<Numero>listadenumeros){
+    
+         ImprimirNumero(listadenumeros);
+         boolean numeros=true;
+        System.out.println("Ingrese el indice del numero a eliminar: ");
+        int indice=leer.nextInt();
+        
+        for(int i=0; i<listadenumeros.size(); i++){
+        
+        if(indice==(i+1)){
+                numeros=true;
+        listadenumeros.remove(i);
+        
+        }//Fin del if
+        
+        }//Fin del for
+        
+    if(numeros==false){
+        System.out.println("Su numero no se encuentra");
+    
+    }
+    return listadenumeros;
+    }
+
+public static void SumarNumero(ArrayList<Numero>listadenumeros){
+    
+ ImprimirNumero(listadenumeros);
+            boolean numeros=false;
+            int suma=0;
+    System.out.println("Ingrese el indice del primer numero: ");
+    int indice1= leer.nextInt();
+    System.out.println("Ingrese el indice del segundo numero: ");
+    int indice2=leer.nextInt();
+    
+    for(int i=0; i<listadenumeros.size(); i++){
+    
+    if(indice1==(i+1)){
+        numeros=true;
+        Numero entero1=listadenumeros.get(indice1);
+    
+    }
+    if(indice2==(i+1)){
+    
+    Numero entero2=listadenumeros.get(indice2);
+    }
+   
+    }
+        System.out.println("La suma es:"+suma);
+        
+        if(numeros==false){
+        
+            System.out.println("Indices Incorrectos ");
+        }
+}
+
+    public static void RestarNumero(ArrayList<Numero>listadenumeros){
+    
+ ImprimirNumero(listadenumeros);
+            boolean numeros=false;
+            int resta=0;
+    System.out.println("Ingrese el indice del primer numero: ");
+    int indice1= leer.nextInt();
+    System.out.println("Ingrese el indice del segundo numero: ");
+    int indice2=leer.nextInt();
+    
+    for(int i=0; i<listadenumeros.size(); i++){
+    
+    if(indice1==(i+1)){
+        numeros=true;
+        Numero entero1=listadenumeros.get(indice1);
+    
+    }
+    if(indice2==(i+1)){
+    
+    Numero entero2=listadenumeros.get(indice2);
+    }
+   
+    }
+        System.out.println("La suma es:"+resta);
+        
+        if(numeros==false){
+        
+            System.out.println("Indices Incorrectos ");
+        }
+}
+    
+      public static void MultiplicarNumero(ArrayList<Numero>listadenumeros){
+    
+ ImprimirNumero(listadenumeros);
+            boolean numeros=false;
+            int multi=0;
+    System.out.println("Ingrese el indice del primer numero: ");
+    int indice1= leer.nextInt();
+    System.out.println("Ingrese el indice del segundo numero: ");
+    int indice2=leer.nextInt();
+    
+    for(int i=0; i<listadenumeros.size(); i++){
+    
+    if(indice1==(i+1)){
+        numeros=true;
+        Numero entero1=listadenumeros.get(indice1);
+    
+    }
+    if(indice2==(i+1)){
+    
+    Numero entero2=listadenumeros.get(indice2);
+    }
+   
+    }
+        System.out.println("La suma es:"+multi);
+        
+        if(numeros==false){
+        
+            System.out.println("Indices Incorrectos ");
+        }
+}
+
+    
+    
 }// Fin del boton

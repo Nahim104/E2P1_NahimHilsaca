@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 
 public class Numero {
-   
-    static ArrayList listadenumeros= new ArrayList();
+   static ArrayList listadenumeros= new ArrayList();
     private int base;
     private String resultadofinal;//Aqui tengo el resultadofinal que es mi cadena
+    
     
  public Numero(){
  
@@ -23,75 +23,97 @@ public class Numero {
  
  public Numero(int baseB, int numN){
  this.base=baseB;
+ this.resultadofinal=dectobase(numN);
 
  
  }//Constructor recargado
- 
- 
- 
- public char numtochar(int division){
- 
-int numero=0;
 
- int acum=10;
- char letras=97;
- char resultado =0;
- letras=(char)acum;
+
+    public int getBase() {
+        return base;
+    }
+
+    public void setBase(int base) {
+        this.base = base;
+    }
+
+    public String getResultadofinal() {
+        return resultadofinal;
+    }
+
+    public void setResultadofinal(String resultadofinal) {
+        this.resultadofinal = resultadofinal;
+    }
  
- while((numero/base)>base){
-            division=numero/base;
-      
-     if(division<=9){
-         resultado=(char)division;
-        
-     } else{
+ 
+ 
+ 
+ public char numtochar(int num){
      
-      resultado=letras;
-     acum++;
-     letras++;
-     }//Fin del else
-       
-       
- }//Fin del while
- return resultado;
+     char numeroconvertido = 0;
+ if(num>=0 || num<=9){
+     
+        numeroconvertido=(char)(num+48);
+        
+ }else if(num>=10 || num<=35){
+ 
+     numeroconvertido=(char)((num)+87);
+ 
+ }
+ 
+ return numeroconvertido;
+ 
+ 
  }//Fin del metodo
  
- public int chartonum(char resultadochar){
-     
-   int numero=0;
- int acum=10;
- char letras=97;
- int resultado =0;
- letras=(char)acum;
  
- while((numero/base)>base){
-            resultado=numero/base;
-      
-     if(resultado<=9){
-         resultado=(int)resultadochar;
-        
-     } else{
+ //Fin del metodo
+ 
+ public int chartonum(char numeroconvertido){
      
-      resultado=letras;
-     acum++;
-     letras++;
-     }//Fin del else
-       
-       
- }//Fin del while
- return resultado;
+     int num= 0;
+ if(numeroconvertido>=48 && numeroconvertido<=57){
+     
+        num=(int)(numeroconvertido-48);
+        
+ }else if(numeroconvertido>=97 && numeroconvertido<=122){
+ 
+        num=(int)(numeroconvertido-87);
+ 
+ }
+ 
+ return numeroconvertido;
+ 
  }//Fin del metodo
  
      
  // Fin del metodo chartonum
  
- public int dectobase(int numero_decimal){
-        char dectobase=0;
-     dectobase=(char) chartonum(dectobase);
+ public String dectobase(int numero_decimal){
+     String residuoS="";
+     int residuoint=0;
+     while(numero_decimal>=base){
+         numero_decimal=numero_decimal/base;
+            residuoint=numero_decimal%base;
+            
+      residuoS+=numtochar(residuoint);
+     
+ }//Fin del while
  
- return dectobase;
+ return residuoS;
  }//Fin del metodo dectobase
  
+ public int basetodec(String residuoS, int base_basetodec){
+ 
+     int numdecimal=0;
+ for(int exponente=residuoS.length()-1; exponente>=0; exponente--){
+     char base=residuoS.charAt(exponente);
+     
+            numdecimal+=chartonum(base)*Math.pow(base_basetodec, exponente);
+ }//Fin del for
+ 
+ return numdecimal;
+ }//Fin del metodo
  
  
  
